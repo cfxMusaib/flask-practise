@@ -3,14 +3,14 @@ from models import StoreModel
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from db import db
-from schemas import PlainStoreSchema
+from schemas import PlainStoreSchema, StoreSchema
 
 blp = Blueprint("stores", __name__, description="Operations on stores")
 
 
 @blp.route("/store")
 class Store(MethodView):
-    @blp.response(200, PlainStoreSchema(many=True))
+    @blp.response(200, StoreSchema(many=True))
     def get(self):
         return StoreModel.query.all()
 
